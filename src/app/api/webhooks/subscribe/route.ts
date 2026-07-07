@@ -44,15 +44,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Create Razorpay subscription
-    const razorpaySubscription = (await createSubscription({
-    plan_id: planId,
-    customer_id: customerId,
-    notify_info: {
+const razorpaySubscription: any = await createSubscription({
+  plan_id: planId,
+  customer_id: customerId,
+  notify_info: {
     notify_email: user.email || '',
-    },
-   })) as {
-    id: string
-    }
+  },
+})
 
     // Update local subscription record
     await adminClient
