@@ -1,0 +1,18 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "regions": ["bom1"],
+  "functions": {
+    "src/app/api/ai/**": {
+      "maxDuration": 120
+    },
+    "src/app/api/campaigns/**": {
+      "maxDuration": 120
+    },
+    "src/app/api/reports/**": {
+      "maxDuration": 60
+    }
+  }
+}
