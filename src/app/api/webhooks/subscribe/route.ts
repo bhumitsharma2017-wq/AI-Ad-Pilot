@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient, createAdminClient } from '@/lib/supabase/server'
-import { createSubscription, RAZORPAY_PLANS } from '@/lib/razorpay/client'
+import {
+  createSubscription,
+  RAZORPAY_PLANS,
+  type RazorpaySubscriptionResponse,
+} from '@/lib/razorpay/client'
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create Razorpay subscription
-    const razorpaySubscription = await createSubscription({
+    const razorpaySubscription = (await createSubscription({
       plan_id: planId,
       customer_notify: true,
       notes: {
@@ -36,7 +40,7 @@ export async function POST(request: NextRequest) {
         email: profile?.email || user.email || '',
         name: profile?.full_name || 'User',
       },
-    })
+    })) as RazorpaySubscriptionResponse
 
     // Update local subscription record
     await adminClient
